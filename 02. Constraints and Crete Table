@@ -1,0 +1,24 @@
+## constraints
+
+2. UNIQUE
+3. CHECK
+4. DEFAULT
+5. PRIMARY KEY
+6. FOREIGH KEY
+
+create type gender_enum AS ENUM ('male', 'female');
+
+
+create table if not exists tab_name (
+  id serial primary key,
+  name varchar(50) not null,
+  email varchar(50) not null unique check (email ~* '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$'),
+  password varchar(50) not null check (password ~* '^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d]).{8,}$'),
+  age smallint not null check(age > 18),
+  gender gender_enum not null,
+  createdAt timestamp default current_timestamp
+);
+
+\dt - List out all tables
+
+\d tab_name - Show metadata of table by name tab_name
